@@ -1,13 +1,19 @@
+// Increase timeout for PDF processing
+export const maxDuration = 60;
+
 export async function POST(request) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    return Response.json({ error: { message: "API key not configured" } }, { status: 500 });
+    return Response.json(
+      { error: { message: "API key not configured. Add ANTHROPIC_API_KEY to Vercel environment variables." } },
+      { status: 500 }
+    );
   }
 
   try {
     const body = await request.json();
 
-    // Validate model is one of allowed models
+    // Validate model
     const allowedModels = [
       "claude-sonnet-4-20250514",
       "claude-opus-4-20250514",
@@ -16,7 +22,6 @@ export async function POST(request) {
       body.model = "claude-sonnet-4-20250514";
     }
 
-    // Cap max_tokens
     body.max_tokens = Math.min(body.max_tokens || 8000, 8000);
 
     const resp = await fetch("https://api.anthropic.com/v1/messages", {

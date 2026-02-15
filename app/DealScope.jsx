@@ -228,43 +228,44 @@ function LBOModel({targetIRR,lboInputs}) {
   }
   const irr=calcIRR(); const irrTarget=(parseFloat(targetIRR)||35)/100; const irrMet=irr>=irrTarget&&!dscrBad;
 
-  function goalSeekGrowth(){
+  function goalSeekGrowth(withSweep){
     let lo=-0.3,hi=2.0;
     for(let i=0;i<100;i++){
       const mid=(lo+hi)/2;
       let sd=debtAmount; const sAP=dYrs>0?debtAmount/dYrs:0;
-      // Simulate debt paydown and check if earnout causes equity raise
       let simCumEq=equityAtClose;
+      let simCashBal=entryEB*wcR;
+      const simCfs=[{t:0,cf:-equityAtClose}];
       for(let y=1;y<=hp;y++){
-        if(y<=dYrs)sd=Math.max(sd-sAP,0);
-        if(a.earnout&&y===earnoutYr){
-          const sRev=entryRev*Math.pow(1+mid,y);
-          const sMarg=entryMargin*Math.pow(1+margGr,y)/100;
-          const sEB=sRev*sMarg;
-          const sCapex=sRev*capexR;
-          const sInt=sd*dRate/(1-0); // approx
-          const sTax=Math.max(sEB-sCapex-sInt,0)*taxR;
-          const sDS=sInt+(y<=dYrs?sAP:0);
-          const sFcf=sEB-sCapex-sTax-sDS-earnoutAmt;
-          if(sFcf<0)simCumEq+=(-sFcf);
-        }
+        const sRev=entryRev*Math.pow(1+mid,y);
+        const sMarg=entryMargin*Math.pow(1+margGr,y)/100;
+        const sEB=sRev*sMarg;
+        const sCapex=sRev*capexR;
+        const sInt=sd*dRate;
+        const sPri=y<=dYrs?sAP:0;
+        const sDS=sInt+sPri;
+        const sTax=Math.max(sEB-sCapex-sInt,0)*taxR;
+        sd=Math.max(sd-sPri,0);
+        const sEarnout=(a.earnout&&y===earnoutYr)?earnoutAmt:0;
+        let sFcf=sEB-sCapex-sTax-sDS-sEarnout;
+        if(sFcf<0){const add=-sFcf;simCumEq+=add;simCfs.push({t:y,cf:-add});sFcf=0;}
+        simCashBal+=sFcf;
+        if(withSweep&&y<hp){const sWC=sEB*wcR;if(simCashBal>sWC){const sw=simCashBal-sWC;simCashBal=sWC;simCfs.push({t:y,cf:sw});}}
       }
       const simRev=entryRev*Math.pow(1+mid,hp);
       const simMarg=entryMargin*Math.pow(1+margGr,hp)/100;
       const simEB=simRev*simMarg;
       const simBasis=a.basisMetric==="Revenue"?simRev:simEB;
-      const simExit=simBasis*num("exitMultiple");
-      const sEq=simExit-sd;
-      const cfs=[{t:0,cf:-equityAtClose}];
-      if(simCumEq>equityAtClose)cfs.push({t:earnoutYr,cf:-(simCumEq-equityAtClose)});
-      cfs.push({t:hp,cf:sEq});
-      let r=0.2;for(let j=0;j<150;j++){let npv=0,dn=0;for(const{t,cf}of cfs){const d=Math.pow(1+r,t);npv+=cf/d;dn+=(-t*cf)/(d*(1+r));}if(Math.abs(dn)<1e-12)break;const rn=r-npv/dn;if(Math.abs(rn-r)<1e-8){r=rn;break;}r=Math.max(-0.99,Math.min(10,rn));}
+      const simExit=simBasis*num("exitMultiple")-sd;
+      simCfs.push({t:hp,cf:simExit});
+      let r=0.2;for(let j=0;j<150;j++){let npv=0,dn=0;for(const{t,cf}of simCfs){const d=Math.pow(1+r,t);npv+=cf/d;dn+=(-t*cf)/(d*(1+r));}if(Math.abs(dn)<1e-12)break;const rn=r-npv/dn;if(Math.abs(rn-r)<1e-8){r=rn;break;}r=Math.max(-0.99,Math.min(10,rn));}
       if(r>irrTarget)hi=mid;else lo=mid;
       if(hi-lo<0.0001)break;
     }
     return (lo+hi)/2;
   }
-  const neededGr=goalSeekGrowth();
+  const neededGr=goalSeekGrowth(false);
+  const neededGrSweep=goalSeekGrowth(true);
   const histCAGR=li.revenueCAGR;
   const histNote=li.revenueCAGRNote;
   const histOk=histCAGR&&histCAGR>0;
@@ -359,12 +360,17 @@ function LBOModel({targetIRR,lboInputs}) {
       {totSweep>0&&<div style={kpi(true)}><Lbl>Cash Swept</Lbl><p style={{fontSize:22,fontWeight:700,color:"#166534",fontFamily:mono,marginTop:4}}>{fmt(totSweep)}</p><p style={{fontSize:10,color:"#888",marginTop:2}}>Returned to equity</p></div>}
     </div>
 
-    <div style={{marginTop:16,padding:"14px 18px",borderRadius:8,background:achievable?"#f0fdf4":histOk?"#fefce8":"#eff6ff",border:`1px solid ${achievable?"#bbf7d0":histOk?"#fde68a":"#bfdbfe"}`,display:"flex",alignItems:"center",gap:12,flexWrap:"wrap"}}>
-      <span style={{fontSize:16}}>{achievable?"✓":"📊"}</span>
+    <div style={{marginTop:16,padding:"14px 18px",borderRadius:8,background:achievable?"#f0fdf4":histOk?"#fefce8":"#eff6ff",border:`1px solid ${achievable?"#bbf7d0":histOk?"#fde68a":"#bfdbfe"}`,display:"flex",alignItems:"flex-start",gap:12,flexWrap:"wrap"}}>
+      <span style={{fontSize:16,marginTop:2}}>{achievable?"✓":"📊"}</span>
       <div style={{flex:1,minWidth:200}}>
-        <p style={{fontSize:13,lineHeight:1.5}}><strong>Revenue Growth Needed for {targetIRR}% IRR: </strong><span style={{fontFamily:mono,fontWeight:700,color:achievable?"#166534":"#b45309"}}>{(neededGr*100).toFixed(1)}%</span>{histOk&&<span style={{color:"#666"}}> (historical {cagrYrs>0?cagrYrs+"-year ":""}CAGR: <span style={{fontFamily:mono,fontWeight:600,color:achievable?"#166534":"#b91c1c"}}>{parseFloat(histCAGR).toFixed(1)}%</span>)</span>}</p>
-        {histNote&&<p style={{fontSize:11,color:"#888",marginTop:2,fontStyle:"italic"}}>{histNote}</p>}
-        {!histOk&&<p style={{fontSize:11,color:"#888",marginTop:2,fontStyle:"italic"}}>Historical revenue CAGR not available from document</p>}
+        <p style={{fontSize:13,lineHeight:1.6}}><strong>Revenue Growth Needed for {targetIRR}% IRR</strong></p>
+        <div style={{display:"flex",gap:16,flexWrap:"wrap",marginTop:6}}>
+          <div><span style={{fontSize:10,color:"#888",fontFamily:mono}}>WITHOUT CASH SWEEP</span><p style={{fontSize:16,fontWeight:700,fontFamily:mono,color:achievable?"#166534":"#b45309",marginTop:2}}>{(neededGr*100).toFixed(1)}%</p></div>
+          <div><span style={{fontSize:10,color:"#888",fontFamily:mono}}>WITH MAX CASH SWEEP</span><p style={{fontSize:16,fontWeight:700,fontFamily:mono,color:histOk&&histCAGR>=neededGrSweep*100?"#166534":"#b45309",marginTop:2}}>{(neededGrSweep*100).toFixed(1)}%</p></div>
+          {histOk&&<div><span style={{fontSize:10,color:"#888",fontFamily:mono}}>HISTORICAL {cagrYrs>0?cagrYrs+"Y ":""}CAGR</span><p style={{fontSize:16,fontWeight:700,fontFamily:mono,color:achievable?"#166534":"#b91c1c",marginTop:2}}>{parseFloat(histCAGR).toFixed(1)}%</p></div>}
+        </div>
+        {histNote&&<p style={{fontSize:11,color:"#888",marginTop:6,fontStyle:"italic"}}>{histNote}</p>}
+        {!histOk&&<p style={{fontSize:11,color:"#888",marginTop:6,fontStyle:"italic"}}>Historical revenue CAGR not available from document</p>}
       </div>
     </div>
   </div>;
@@ -405,7 +411,10 @@ export default function DealScopeAI() {
       content.push({type:"text",text:"\nAnalyze the above. Respond ONLY in valid JSON."});
       const sysP=mode==="quickscreen"?buildScreenSys(config):mode==="deepdive"?buildDeepSys(incognito):VERSUS_SYS;
       const resp=await fetch("/api/analyze",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({model:mdl,max_tokens:8000,system:sysP,messages:[{role:"user",content:content}]})});
-      const data=await resp.json();if(data.error)throw new Error(data.error.message);
+      const respText=await resp.text();
+      let data;
+      try{data=JSON.parse(respText);}catch{throw new Error(resp.status===413?"PDF too large. Try a smaller document (< 4MB).":"Server error ("+resp.status+"): "+respText.slice(0,100));}
+      if(data.error)throw new Error(data.error.message);
       let cl=(data.content||[]).map(c=>c.text||"").join("").replace(/```json|```/g,"").trim();
       let br=0,bk=0;for(const c of cl){if(c==="{")br++;if(c==="}")br--;if(c==="[")bk++;if(c==="]")bk--;}while(bk>0){cl+="]";bk--;}while(br>0){cl+="}";br--;}
       const parsed=JSON.parse(cl);
