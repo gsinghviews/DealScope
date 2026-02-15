@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+::selection {
+  background: #1a1a1a;
+  color: #fafaf7;
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+}
+body {
+  font-family: "Libre Franklin", "Helvetica Neue", sans-serif;
+  background: #fafaf7;
+  color: #1a1a1a;
+}
