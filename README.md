@@ -31,7 +31,6 @@ This SOP outlines the steps to analyze investment opportunities using DealScope,
 
 <img width="960" height="1032" alt="image" src="https://github.com/user-attachments/assets/619d99e9-83b1-4729-a201-d9c56ff9f09e" />
 
-
 - Obtain the CIM document for the investment opportunity.
 - Ensure the CIM is complete and contains all necessary financial and operational data.
 
@@ -41,7 +40,6 @@ This SOP outlines the steps to analyze investment opportunities using DealScope,
 
 <img width="960" height="1032" alt="image" src="https://github.com/user-attachments/assets/74d69d8a-8bab-491b-9ac8-8149f74c9453" />
 
-
 - Open DealScope and choose the appropriate mode: 
   - **Build LBO Model**: For creating a leveraged buyout model.
   - **Incognito Mode**: To hide personally identifiable information.
@@ -50,7 +48,7 @@ This SOP outlines the steps to analyze investment opportunities using DealScope,
 
 **Step 3: Run the Deep Dive Analysis** [0:48](https://loom.com/share/2e545a7adb404b3e908672e0e9cb664a?t=48)
 
-![generated-image-at-00:00:48](https://loom.com/i/dfebb2fcddae4f0eb4d9f496e15f8fea?workflows_screenshot=true)
+<img width="960" height="1032" alt="image" src="https://github.com/user-attachments/assets/547ab6d7-2f6f-4b6f-b89f-6e35d1217c9c" />
 
 - Initiate the deep dive analysis by clicking the relevant button.
 - Wait approximately 30 seconds for the analysis to complete.
@@ -59,7 +57,7 @@ This SOP outlines the steps to analyze investment opportunities using DealScope,
 
 **Step 4: Review Investment Scorecard** [1:06](https://loom.com/share/2e545a7adb404b3e908672e0e9cb664a?t=66)
 
-![generated-image-at-00:01:06](https://loom.com/i/d9bbaa80071d4efab77c83c429215714?workflows_screenshot=true)
+<img width="960" height="1032" alt="image" src="https://github.com/user-attachments/assets/cc5c7edb-7dd8-46ca-8606-5c7d61859cd2" />
 
 - Examine the generated investment scorecard, which includes: 
   - Market attractiveness
@@ -73,7 +71,7 @@ This SOP outlines the steps to analyze investment opportunities using DealScope,
 
 **Step 5: Generate Investment Thesis** [1:16](https://loom.com/share/2e545a7adb404b3e908672e0e9cb664a?t=76)
 
-![generated-image-at-00:01:16](https://loom.com/i/f7240c3608fd45c2b81b91fc14079bdf?workflows_screenshot=true)
+<img width="960" height="1032" alt="image" src="https://github.com/user-attachments/assets/c3b49d62-2659-4a8e-b17b-06f0f2307784" />
 
 - Review the investment thesis provided by DealScope.
 - Understand the rationale behind the deal, key risks, and necessary beliefs for a successful return.
