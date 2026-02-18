@@ -29,7 +29,8 @@ This SOP outlines the steps to analyze investment opportunities using DealScope,
 
 **Step 1: Prepare the CIM** [0:22](https://loom.com/share/2e545a7adb404b3e908672e0e9cb664a?t=22)
 
-![generated-image-at-00:00:22](https://loom.com/i/345991bbe63149bc832b174266a17701?workflows_screenshot=true)
+<img width="960" height="1032" alt="image" src="https://github.com/user-attachments/assets/619d99e9-83b1-4729-a201-d9c56ff9f09e" />
+
 
 - Obtain the CIM document for the investment opportunity.
 - Ensure the CIM is complete and contains all necessary financial and operational data.
@@ -38,7 +39,8 @@ This SOP outlines the steps to analyze investment opportunities using DealScope,
 
 **Step 2: Select Analysis Mode** [0:36](https://loom.com/share/2e545a7adb404b3e908672e0e9cb664a?t=36)
 
-![generated-image-at-00:00:36](https://loom.com/i/c32876154c2540538195efe40e7e77a6?workflows_screenshot=true)
+<img width="960" height="1032" alt="image" src="https://github.com/user-attachments/assets/74d69d8a-8bab-491b-9ac8-8149f74c9453" />
+
 
 - Open DealScope and choose the appropriate mode: 
   - **Build LBO Model**: For creating a leveraged buyout model.
