@@ -80,7 +80,8 @@ This SOP outlines the steps to analyze investment opportunities using DealScope,
 
 **Step 6: Analyze Financials** [1:24](https://loom.com/share/2e545a7adb404b3e908672e0e9cb664a?t=84)
 
-![generated-image-at-00:01:24](https://loom.com/i/c06b51adeb1e4ed2b32a26697d3c6c5f?workflows_screenshot=true)
+<img width="960" height="1032" alt="image" src="https://github.com/user-attachments/assets/7e9b9462-825c-45b6-a6e4-e305eaafe8a3" />
+
 
 - Review the extracted financials from the CIM.
 - Adjust the valuation basis (e.g., EBITDA) and desired payment structure (e.g., earn-out).
@@ -89,7 +90,7 @@ This SOP outlines the steps to analyze investment opportunities using DealScope,
 
 **Step 7: Evaluate IRR and MOIC** [1:46](https://loom.com/share/2e545a7adb404b3e908672e0e9cb664a?t=106)
 
-![generated-image-at-00:01:46](https://loom.com/i/c9d15f7ec5194a41b198fb98850ec42f?workflows_screenshot=true)
+<img width="960" height="1032" alt="image" src="https://github.com/user-attachments/assets/3c8243b5-7700-40e6-8c60-0db6a394a177" />
 
 - Check the populated IRR (Internal Rate of Return) on equity and MOIC (Multiple on Invested Capital).
 - Ensure all service requirements are met based on the financial model.
@@ -98,7 +99,7 @@ This SOP outlines the steps to analyze investment opportunities using DealScope,
 
 **Step 8: Toggle Cash Sweep Option** [2:02](https://loom.com/share/2e545a7adb404b3e908672e0e9cb664a?t=122)
 
-![generated-image-at-00:02:02](https://loom.com/i/79b2329667654456a0b791e7fd48cc2a?workflows_screenshot=true)
+<img width="960" height="1032" alt="image" src="https://github.com/user-attachments/assets/916c9634-ae4a-4313-9d85-bf7a244a796f" />
 
 - Decide whether to enable cash sweep to pay back investors.
 - Observe how this affects the IRR and CAGR (Compound Annual Growth Rate) requirements.
@@ -107,7 +108,7 @@ This SOP outlines the steps to analyze investment opportunities using DealScope,
 
 **Step 9: Conduct Sensitivity Analysis** [2:31](https://loom.com/share/2e545a7adb404b3e908672e0e9cb664a?t=151)
 
-![generated-image-at-00:02:31](https://loom.com/i/61dc6d5a5a6349dc9aa64aa84cdde7db?workflows_screenshot=true)
+<img width="960" height="1032" alt="image" src="https://github.com/user-attachments/assets/a6b57d66-071d-4360-b892-0a2fc63dfb01" />
 
 - Analyze the impact of cash sweep on growth requirements: 
   - Without cash sweep: 19.3% CAGR over five years.
@@ -117,7 +118,7 @@ This SOP outlines the steps to analyze investment opportunities using DealScope,
 
 **Step 10: Compare Multiple CIMs** [3:01](https://loom.com/share/2e545a7adb404b3e908672e0e9cb664a?t=181)
 
-![generated-image-at-00:03:01](https://loom.com/i/1ab8abe6294d406794f47203a912b9a1?workflows_screenshot=true)
+<img width="960" height="1032" alt="image" src="https://github.com/user-attachments/assets/89d2d182-4aaf-46ca-8ac2-44f688db5898" />
 
 - If applicable, upload two CIMs for head-to-head comparison.
 - Wait for the analysis to complete and review the direct comparison metrics and grades.
@@ -126,7 +127,7 @@ This SOP outlines the steps to analyze investment opportunities using DealScope,
 
 **Step 11: Make a Decision** [3:29](https://loom.com/share/2e545a7adb404b3e908672e0e9cb664a?t=209)
 
-![generated-image-at-00:03:29](https://loom.com/i/40d13d9bdd2d4158b62965fcc02a863f?workflows_screenshot=true)
+<img width="960" height="1032" alt="image" src="https://github.com/user-attachments/assets/6eca934b-bc92-4f29-b148-5537731c8d8b" />
 
 - Based on the analysis, determine which deal is stronger and why.
 
